@@ -1,12 +1,15 @@
 
 import './App.css'
-
+import { Login } from './component/Login'
+import { SignUp } from './component/signUp'
 function App() {
 
 
   return (
     <>
-    <h1>hello world</h1>
+
+    <Login />
+    <SignUp />
     </>
   )
 }

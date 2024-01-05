@@ -1,0 +1,49 @@
+.container-signup {
+  background-color: white;
+  height: 600px;
+  width: 100%;
+  padding: 100px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.signup-container-form {
+  padding: 100px;
+  /* border: 1px solid red; */
+  height: 400px;
+  width: 700px;
+  justify-content: center;
+  text-align: center;
+  box-shadow: -1px 1px 18px 8px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -1px 1px 18px 8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 1px 18px 8px rgba(0, 0, 0, 0.75);
+}
+.inputs-signup {
+  border: none;
+  /* border-bottom: 1px solid red; */
+  padding: 4px;
+
+}
+.inputs-signup:focus {
+  border: none;
+  box-shadow: none;
+}
+.inputs-signup:active {
+  border: none;
+}
+.aggreement-signup {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.icons-signup{
+  height: 20px;
+  width: 20px;
+  margin-top:20px;
+}
+.username-container,.email-container,.password-container,.confirm-pw-container{
+border-bottom: 1px solid red  ;
+
+
+}
