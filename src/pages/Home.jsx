@@ -3,7 +3,7 @@ import React from 'react'
 const Home = () => {
   return (
     <div style={{display:'flex',justifyContent:"center",alignItems:"center"}}>
-      <h1 >homee page</h1>
+      <h1 >Market Basket analysis </h1>
     </div>
   )
 }

@@ -49,7 +49,6 @@ import { useNavigate } from "react-router-dom";
               placeholder="Password"
               className="form-input"
               id="password"
-              
               onChange={(e)=>setPassword(e.target.value)}
             />
             <button className="btn-signin">SIGN IN </button>
