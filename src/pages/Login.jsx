@@ -4,32 +4,40 @@ import axios from 'axios';
 
 import { useNavigate } from "react-router-dom";
  const Login = () => {
-  const [users, setUsers] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [users, setUsers] = useState([])
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const navigate = useNavigate();
+
   useEffect(() => {
-    fetchUsers();
-  });
+      fetchUsers();
+  }, [])
+
   const fetchUsers = () => {
-    axios.get("http:localhost:5000/register").then((res) => {
-      console.log(res.data);
-    });
-  };
-  const handleLogin =async (event)=>{
-    event.preventDefault()
-    try{
-      const response= await axios.post('http://localhost:5000/login',{username,password})
-      const token= response.data.token
-      setUsername('')
-      setPassword('')
-      fetchUsers()
-      navigate('/account')
-      window.location.reload()
-      localStorage.setItem('token',token)
-    }catch(error){
-      console.log('login error')
-    }
+      axios
+      .get('http://localhost:3001/register')
+      .then((res) => {
+          console.log(res.data)
+      })
+  }
+
+
+  const handleLogin =  async (event) => {
+      event.preventDefault();
+      try {
+          const response = await axios
+          .post('http://localhost:5000/login', { username, password })
+          const token = response.data.token
+          alert('Login successful')
+          setUsername('')
+          setPassword('')
+          fetchUsers();
+          navigate('/account')
+          window.location.reload();
+          localStorage.setItem('token', token)
+      } catch (error) {
+          console.log('Login Error', error)
+      }
   }
   return (
     <>
@@ -51,7 +59,7 @@ import { useNavigate } from "react-router-dom";
               id="password"
               onChange={(e)=>setPassword(e.target.value)}
             />
-            <button className="btn-signin">SIGN IN </button>
+            <button className="btn-signin" type="submit">SIGN IN </button>
           </form>
         </div>
       </div>
