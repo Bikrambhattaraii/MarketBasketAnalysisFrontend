@@ -1,8 +1,23 @@
-# React + Vite
+# Market Basket Analysis with FP-Growth Algorithm
+## Overview
+This project implements Market Basket Analysis using the FP-Growth algorithm. The goal is to discover patterns and associations among items in a dataset of transactions, helping businesses make informed decisions.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Tech Stack
+- **MERN Stack:**
+  - MongoDB
+  - Express.js
+  - React
+  - Node.js
 
-Currently, two official plugins are available:
+## Features
+- **FP-Growth Algorithm:**
+  - Efficient mining of frequent itemsets using the FP-Growth algorithm.
+  - Association rule generation to discover interesting patterns.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Interactive Frontend:**
+  - User-friendly interface built with React for visualizing and exploring analysis results.
+  - Intuitive data representation and dynamic updates for a seamless user experience.
+
+- **Scalable Backend:**
+  - Robust Express.js backend to handle data processing and communication with the database.
+  - MongoDB integration for storing and retrieving transactional data efficiently.
