@@ -178,5 +178,5 @@ export default function LandingPage() {
         </footer>
     </>
   );
->>>>>>> 2ff243a821487486bf585c8400894f28a0c1441a
+
 }
