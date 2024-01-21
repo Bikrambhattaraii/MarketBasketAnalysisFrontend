@@ -1,0 +1,15 @@
+.nav-container{
+    height: 10vh;
+    background-color: #fff;
+    color: black;
+    padding:20px;
+}
+.nav-container ul{
+
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+.nav-container ul li{
+    list-style: none;
+}
