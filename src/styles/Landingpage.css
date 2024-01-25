@@ -1,0 +1,200 @@
+.container-landing-page-mainpage {
+  max-width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 150px;
+}
+
+.container-landing-page-mainpage h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 0.9rem;
+}
+
+.container-landing-page-mainpage p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #4b5563;
+}
+
+.container-landing-page-mainpage a {
+  display: inline-block;
+  margin-right: 1rem;
+  padding: 0.8rem 1.2rem;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #010308;
+  border-radius: 0.375rem;
+  transition: background-color 0.3s ease-in-out;
+}
+.container-login-register {
+  margin-top: 100px;
+}
+
+.container-landing-page-mainpage a:hover {
+  background-color:white;
+  color: black;
+}
+.container-pricing-plans {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  padding: 40px;
+}
+
+.container-pricing-plans h2 {
+  color: #333;
+}
+
+.container-pricing-plans p {
+  color: #666;
+}
+.basic-plans,
+.pro-plans,
+.enterprise-plans {
+  margin-top: 60px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 300px;
+  height: 300px;
+}
+.basic-plans h2,
+.pro-plans h2,
+.enterprise-plans h2 {
+  color: #0d5548;
+  font-size: 1.7rem;
+}
+
+.basic-plans p,
+.pro-plans p,
+.enterprise-plans p {
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: center;
+  color: #333;
+}
+
+.basic-plans ul,
+.pro-plans ul,
+.enterprise-plans ul {
+  list-style: none;
+}
+.plans-container {
+  display: flex;
+  justify-content: space-around;
+}
+.container-pricing-plans h2 {
+  text-align: center;
+  font-size: 3rem;
+}
+.container-pricing-plans p {
+  text-align: center;
+}
+.container-how-to-use {
+  font-family: "Arial", sans-serif;
+  background-color: #f8f8f8;
+  padding: 50px 0;
+}
+
+.container-how-to-use h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.container-how-to-use p {
+  color: #666;
+}
+
+.container-how-to-use > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container-how-to-use > div > div {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 0 10px;
+}
+
+.container-how-to-use h2,
+.container-how-to-use > div > div > div h2 {
+  color: #1bbc9d;
+}
+
+.container-how-to-use > div > div > div p {
+  font-size: 1.2em;
+  color: #333;
+}
+
+/* JOIN TEAM */
+
+.container-join-team {
+    background-color: #dce1e0;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+    color: black;
+  }
+  
+  .container-join-team h2 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+  }
+  
+  .container-join-team p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+  }
+  
+  .container-join-team div {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .container-join-team a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 1.2em;
+    text-decoration: none;
+    color:white;
+    background-color:black;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .container-join-team a:hover {
+    background-color: #fff; /* Change to your hover background color */
+    color:black; /* Change to your hover text color */
+  }
+  
+  /* Footer */
+  
+  footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  footer p {
+    margin: 0;
+    font-size: 1em;
+  }
+  
+  nav {
+    margin-top: 10px;
+  }
+  
+  nav a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #fff;
+    font-size:
+  }

@@ -47,7 +47,7 @@ const SignUp = () => {
           <h3>Sign Up</h3>
           <form onSubmit={handleRegister}>
             <div className="username-container">
-              <FaUserNinja className="icons-signup" />
+            
               <input
                 type="text"
                 placeholder="enter your username"
@@ -62,7 +62,7 @@ const SignUp = () => {
             </div>
             <div className="email-container">
               <span>
-                <FaEnvelope className="icons-signup" />
+            
               </span>{" "}
               <input
                 type="email"
@@ -77,7 +77,7 @@ const SignUp = () => {
               />
             </div>
             <div className="password-container">
-              <FaLock className="icons-signup" />
+              
               <input
                 type="password"
                 placeholder="enter your passowrd"
