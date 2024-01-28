@@ -1,21 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .container-landing-page-mainpage {
   max-width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding: 150px;
+  padding: 120px;
 }
-
 .container-landing-page-mainpage h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
   line-height: 1.2;
   margin-bottom: 0.9rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
-
 .container-landing-page-mainpage p {
   font-size: 1rem;
   line-height: 1.75;
   color: #4b5563;
+  font-family: "PT Serif", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .container-landing-page-mainpage a {
@@ -35,7 +46,7 @@
 }
 
 .container-landing-page-mainpage a:hover {
-  background-color:white;
+  background-color: white;
   color: black;
 }
 .container-pricing-plans {
@@ -45,26 +56,35 @@
 }
 
 .container-pricing-plans h2 {
-  color: #333;
+  color: #0f0303;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .container-pricing-plans p {
-  color: #666;
+  color: #191515;
+  font-weight: 500;
+  font-size: 1rem;
 }
-.basic-plans,
-.pro-plans,
-.enterprise-plans {
-  margin-top: 60px;
+.plans-card {
+  margin-top: 40px;
   border: 1px solid #ccc;
   border-radius: 8px;
   width: 300px;
-  height: 300px;
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 30px;
 }
-.basic-plans h2,
-.pro-plans h2,
-.enterprise-plans h2 {
-  color: #0d5548;
-  font-size: 1.7rem;
+.plans-card ul li {
+  list-style: none;
+  text-align: start;
+}
+.plans-card h2 {
+  font-size: 1rem;
 }
 
 .basic-plans p,
@@ -75,15 +95,15 @@
   text-align: center;
   color: #333;
 }
-
-.basic-plans ul,
-.pro-plans ul,
-.enterprise-plans ul {
-  list-style: none;
+.btn {
+  margin-top: 10px;
+}
+.plans-card li {
+  margin-top: 10px;
 }
 .plans-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .container-pricing-plans h2 {
   text-align: center;
@@ -97,7 +117,6 @@
   background-color: #f8f8f8;
   padding: 50px 0;
 }
-
 .container-how-to-use h2 {
   color: #333;
   margin-bottom: 20px;
@@ -123,78 +142,77 @@
 
 .container-how-to-use h2,
 .container-how-to-use > div > div > div h2 {
-  color: #1bbc9d;
+  color: #27695c;
 }
 
 .container-how-to-use > div > div > div p {
   font-size: 1.2em;
-  color: #333;
+  color: #02180c;
 }
 
 /* JOIN TEAM */
 
 .container-join-team {
-    background-color: #dce1e0;
-    color: #fff;
-    padding: 40px 20px;
-    text-align: center;
-    color: black;
-  }
-  
-  .container-join-team h2 {
-    font-size: 2.5em;
-    margin-bottom: 15px;
-  }
-  
-  .container-join-team p {
-    font-size: 1.2em;
-    margin-bottom: 30px;
-  }
-  
-  .container-join-team div {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .container-join-team a {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-top: 20px;
-    margin-left: 10px;
-    font-size: 1.2em;
-    text-decoration: none;
-    color:white;
-    background-color:black;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .container-join-team a:hover {
-    background-color: #fff; /* Change to your hover background color */
-    color:black; /* Change to your hover text color */
-  }
-  
-  /* Footer */
-  
-  footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  footer p {
-    margin: 0;
-    font-size: 1em;
-  }
-  
-  nav {
-    margin-top: 10px;
-  }
-  
-  nav a {
-    margin-right: 10px;
-    text-decoration: none;
-    color: #fff;
-    font-size:
-  }
+  background-color: #dce1e0;
+  color: #fff;
+  padding: 150px;
+  text-align: center;
+  color: black;
+}
+
+.container-join-team h2 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+}
+
+.container-join-team p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.container-join-team div {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.container-join-team a {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 50px;
+  margin-left: 10px;
+  font-size: 1.2em;
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container-join-team a:hover {
+  background-color: #fff; /* Change to your hover background color */
+  color: black; /* Change to your hover text color */
+}
+
+/* Footer */
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+  font-size: 1em;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #fff;
+}

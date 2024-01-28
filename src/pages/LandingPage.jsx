@@ -1,9 +1,43 @@
 import { Link } from "react-router-dom";
 import "../styles/Landingpage.css";
 
+import { Header } from "../component/Header";
 export default function LandingPage() {
+  const plansData = [
+    {
+      name: "Basic",
+      price: "$19/month",
+      features: ["1000 Transactions", "Email Support", "Basic Reporting"],
+      buttonLabel: "choose a plan",
+    },
+    {
+      name: "Pro",
+      price: "$49/month",
+      features: [
+        "Unlimited Transactions",
+        "Priority Email Support",
+        "Advanced Reporting",
+        "Item Recommendations",
+      ],
+      buttonLabel: "choose a plan",
+    },
+    {
+      name: "Enterprise",
+      price: "100rs/month",
+      features: [
+        "Custom Transactions",
+        "24/7 Support",
+        "Custom Reporting",
+        "Item Recommendations",
+        "Dedicated Account Manager",
+      ],
+      buttonLabel: "choose a plan",
+    },
+  ];
+
   return (
     <>
+      <Header />
       <section className="container-landing-page-mainpage">
         <div>
           <div>
@@ -39,43 +73,18 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="plans-container">
-            <div className="basic-plans">
-              <div>
-                <h2>Basic</h2>
-                <p>$19/month</p>
+            {plansData.map((plan, index) => (
+              <div key={index} className="plans-card">
+                <h2>{plan.name}</h2>
+                <p>{plan.price}</p>
                 <ul>
-                  <li>1000 Transactions</li>
-                  <li>Email Support</li>
-                  <li>Basic Reporting</li>
+                  {plan.features.map((feature, i) => (
+                    <li key={i}>{feature}</li>
+                  ))}
                 </ul>
+                <button className="btn">{plan.buttonLabel}</button>
               </div>
-            </div>
-
-            <div>
-              <div className="pro-plans">
-                <h2>Pro</h2>
-                <p>$49/month</p>
-                <ul>
-                  <li>Unlimited Transactions</li>
-                  <li>Priority Email Support</li>
-                  <li>Advanced Reporting</li>
-                  <li>Item Recommendations</li>
-                </ul>
-              </div>
-            </div>
-            <div className="enterprise-plans">
-              <div>
-                <h2>Enterprise</h2>
-                <p>Contact Us</p>
-                <ul>
-                  <li>Custom Transactions</li>
-                  <li>24/7 Support</li>
-                  <li>Custom Reporting</li>
-                  <li>Item Recommendations</li>
-                  <li>Dedicated Account Manager</li>
-                </ul>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -101,7 +110,6 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
-
             <div>
               <div>
                 <h2>Step 2: Upload Data</h2>
@@ -111,7 +119,6 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
-
             <div>
               <div>
                 <h2>Step 3: Analyze</h2>
