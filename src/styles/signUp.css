@@ -1,49 +1,74 @@
-/* signUp.css */
-
 .container-signup {
-  display: flex;
-  justify-content: center;
-
-  align-items: center;
-  height: 100vh;
-  background-color: #f8f8f8;
-}
-
-.signup-container-form {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  width: 300px;
-  text-align: center;
-}
-
-.signup-container-form h3 {
-  color: #1bbc9d;
-}
-
-.icons-signup {
-  margin-right: 10px;
-  color: #1bbc9d;
-}
-
-.inputs-signup {
   width: 100%;
+  height: auto;
+  padding: 50px 100px 50px 440px;
+  background: rgb(36, 25, 216);
+  background: linear-gradient(
+    90deg,
+    rgba(36, 25, 216, 1) 0%,
+    rgba(177, 109, 169, 0.9735760515143558) 35%,
+    rgba(168, 18, 151, 1) 100%
+  );
+}
+.container-signup h3 {
+  font-size: 1.8rem;
+  background-color: black;
+  color: white;
   padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  text-align: center;
+  width: 70%;
+}
+.signup-container-form {
+  background-color: white;
+  width: 70%;
+  height: auto;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-button {
-  background-color: #1bbc9d;
-  color: #fff;
+.signup-container-form div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.signup-container-form div label {
+  min-width: 120px;
+  margin-right: 10px;
+}
+
+.signup-container-form div input {
+  flex: 1;
   padding: 10px;
+  background-color: rgb(251, 250, 250);
+}
+.signup-container-form input:focus {
+  outline: none; /* Remove default outline */
+  border-color: #007bff; /* Change border color when input is focused */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a box shadow when input is focused */
+}
+.phone-number-container select {
+  padding: 10px;
+  margin-right: 5px;
+}
+.btn-register{
+  background-color: rgb(127, 163, 127);
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  padding: 10px 70px 10px 70px;
+  border-radius: 30px;
+  margin-bottom: 20px;
+  color: white;
+  margin-left: 150px;
 }
+.btn-register:hover{
+  background-color: rgb(39, 10, 10);
+  color:white;
+  transition: .5s ease-in-out;
 
-button:hover {
-  background-color: #24e0ba;
+}
+.btn-register:active {
+  background-color: rgb(0, 0, 255);
+  color: white;
 }

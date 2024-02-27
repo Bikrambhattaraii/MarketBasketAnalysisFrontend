@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const SignUp = () => {
+  const [countryCode, setCountryCode] = useState("+1");
+  const handleCountryCodeChange = (event) => {
+    setCountryCode(event.target.value);
+  };
+
   const [user, setUser] = useState([]);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -43,27 +48,28 @@ const SignUp = () => {
   return (
     <>
       <div className="container-signup">
+        <h3>Sign Up</h3>  
         <div className="signup-container-form">
-          <h3>Sign Up</h3>
+        
           <form onSubmit={handleRegister}>
             <div className="username-container">
-            
-              <input
-                type="text"
-                placeholder="enter your username"
-                name="username"
-                className="inputs-signup"
-                value={username}
-                id="username"
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-              />
+              <label> Name:</label>
+               
+                <input
+                  type="text"
+                  placeholder="enter your username"
+                  name="username"
+                  className="inputs-signup"
+                  value={username}
+                  id="username"
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                />
+              
             </div>
             <div className="email-container">
-              <span>
-            
-              </span>{" "}
+              <label>Email</label>{" "}
               <input
                 type="email"
                 placeholder="enter your  email"
@@ -77,21 +83,75 @@ const SignUp = () => {
               />
             </div>
             <div className="password-container">
-              
-              <input
-                type="password"
-                placeholder="enter your passowrd"
-                className="inputs-signup"
-                value={password}
-                id="password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
+              <label>
+                Password </label>{" "}
+                <input
+                  type="password"
+                  placeholder="enter your passowrd"
+                  className="inputs-signup"
+                  value={password}
+                  id="password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+             
             </div>
 
-            <button type="submit">submit</button>
-          </form>
+            <div>
+              <label htmlFor="shopName">
+                Shop name:
+              </label>
+                <input
+                  type="text"
+                  id="shopName"
+                  name="shopName"
+                  placeholder="Your shop name"
+                />
+              
+            </div>
+            <div>
+              <label htmlFor="ownerName">
+                Owner Name:
+            </label>      <input
+                 type="text"
+                  id="ownerName"
+                  name="ownerName"
+                  placeholder="Shop Owner name"
+                />
+             
+            </div>
+            <div className="phone-number-container">
+              
+              <label htmlFor="phone">Phone Number:</label>
+              <select
+                id="countryCode"
+                name="countryCode"
+                value={countryCode}
+                onChange={handleCountryCodeChange}
+              >
+                <option value="+1">+1 (USA)</option>
+                <option value="+91">+91 (India)</option>
+                <option value="+977">(Nepal)</option>
+                {/* Add more country codes as needed */}
+              </select>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="address">Address:</label>
+              <input type="text" placeholder="enter Owner address" />
+            </div>
+
+            <button className="btn-register" type="submit" >submit</button>
+      
+ </form>
+        
         </div>
       </div>
     </>
