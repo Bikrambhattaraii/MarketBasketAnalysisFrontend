@@ -7,8 +7,7 @@ import GuestLayout from './layouts/GuestLayout';
 import UserLayout from './layouts/UserLayout';
 //router paths
 const router = createBrowserRouter([
-
-    //independent page
+  //independent page
   {
     path: "/",
     element: <LandingPage />,
@@ -34,16 +33,20 @@ const router = createBrowserRouter([
     ],
   },
 
-  //user 
+  //user
   {
-    path:'/home',
+    path: "/home",
     element: <UserLayout />,
-    children:[
-        {
-            path:'dashboard',
-            element:<Home />
-        }
-    ]
-  }
+    children: [
+      {
+        path: "dashboard",
+        element: <Home />,
+      },
+      {
+        path: "/home",
+        element: <Home />,
+      },
+    ],
+  },
 ]);
 export default router;

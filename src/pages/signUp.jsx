@@ -1,59 +1,61 @@
 import { FaUserNinja, FaEnvelope, FaLock } from "react-icons/fa6";
 import "../styles/signUp.css";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-const SignUp = () => {
-  const [countryCode, setCountryCode] = useState("+1");
-  const handleCountryCodeChange = (event) => {
-    setCountryCode(event.target.value);
-  };
+import { useState } from "react";
+import {api as apiCall} from "../config/axios.js";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link} from 'react-router-dom'
 
-  const [user, setUser] = useState([]);
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [shopName, setShopname] = useState("");
-  const [address, setAdress] = useState("");
-  const [image, setImage] = useState(null);
-  const [ownerName, setOwnerName] = useState("");
-  const Navigate = useNavigate();
-  useEffect(() => {
-    fetchUsers();
+const SignUp = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    shop_name: "",
+    owner_name: "",
+    address: "",
   });
-  const fetchUsers = () => {
-    axios
-      .get("localhost:8000/api/auth/register")
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching users:", error.message);
-      });
+  const [shopLogo, setShopLogo] = useState(null);
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleRegister = (event) => {
     event.preventDefault();
-    axios
-      .post("localhost:8000/api/auth/register", { email, username, password })
-      .then(() => {
-        alert("Registration success");
-        setEmail("");
-        setUsername("");
-        setPassword("");
-        setAdress("");
-        setOwnerName("");
-        setShopname("");
-        setImage("");
-        fetchUsers();
-        Navigate("/login");
+    apiCall
+      .post(
+        "/auth/register",
+        { ...formData, shop_logo: shopLogo },
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      )
+      .then((res) => {
+        if (res.data.success === true) {
+          event.target.reset();
+          setFormData({
+            username: "",
+            email: "",
+            password: "",
+            shop_name: "",
+            owner_name: "",
+            address: "",
+          });
+          setShopLogo(null);
+          //  console.log(res.data.message);
+          toast.success(res.data.message);
+        } else {
+          // console.log(res.data.message.errors[0].message)
+          toast.warn(res.data.message.errors[0].message);
+        }
       })
       .catch((error) => {
-        console.error("Error registering user:", error.message);
+        // console.error("Error registering user:", error.message);
+        toast.error(error.message);
       });
-  };
-  const handleImageChange = (event) => {
-    setShopLogo(event.target.files[0]);
   };
 
   return (
@@ -67,41 +69,35 @@ const SignUp = () => {
 
               <input
                 type="text"
-                placeholder="enter your username"
+                placeholder="Enter your username"
                 name="username"
                 className="inputs-signup"
-                value={username}
+                value={formData.username}
                 id="username"
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
+                onChange={handleInputChange}
               />
             </div>
             <div className="email-container">
               <label>Email</label>{" "}
               <input
                 type="email"
-                placeholder="enter your  email"
+                placeholder="Enter your  email"
                 name="email"
                 className="inputs-signup"
-                value={email}
+                value={formData.email}
                 id="email"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
+                onChange={handleInputChange}
               />
             </div>
             <div className="password-container">
               <label>Password </label>{" "}
               <input
                 type="password"
-                placeholder="enter your passowrd"
+                placeholder="Enter your passowrd"
                 className="inputs-signup"
-                value={password}
-                id="password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                value={formData.password}
+                name="password"
+                onChange={handleInputChange}
               />
             </div>
 
@@ -109,26 +105,22 @@ const SignUp = () => {
               <label htmlFor="shopName">Shop name:</label>
               <input
                 type="text"
-                id="shop_name"
+                id="shopName"
                 name="shop_name"
-                value={shopName}
+                value={formData.shop_name}
                 placeholder="Your shop name"
-                onChange={(e) => {
-                  setShopname(e.target.value);
-                }}
+                onChange={handleInputChange}
               />
             </div>
             <div>
-              <label htmlFor="ownerName">Owner Name:</label>{" "}
+              <label htmlFor="owner_name">Owner Name:</label>{" "}
               <input
                 type="text"
                 id="owner_name"
                 name="owner_name"
-                value={ownerName}
+                value={formData.owner_name}
                 placeholder="Shop Owner name"
-                onChange={(e) => {
-                  setOwnerName(e.target.value);
-                }}
+                onChange={handleInputChange}
               />
             </div>
             <div className="image-upload-container">
@@ -136,45 +128,29 @@ const SignUp = () => {
               <input
                 type="file"
                 accept="image/*"
-                id="shop_logo"
                 name="shop_logo"
-                value={image}
-                onChange={handleImageChange}
+                onChange={(e) => setShopLogo(e.target.files[0])}
               />
-            </div>
-            <div className="phone-number-container">
-              <label htmlFor="phone">Phone Number:</label>
-              <select
-                id="countryCode"
-                name="countryCode"
-                value={countryCode}
-                onChange={handleCountryCodeChange}
-              >
-                <option value="+1">+1 (USA)</option>
-                <option value="+91">+91 (India)</option>
-                <option value="+977">+977(Nepal)</option>
-              </select>
-              <input type="tel" id="phone" name="phone" required />
             </div>
             <div>
               <label htmlFor="address">Address:</label>
               <input
                 type="text"
-                placeholder="enter Owner address"
+                placeholder="Enter Owner address"
                 name="address"
                 id="address"
-                value={address}
-                onChange={(e) => {
-                  setAdress(e.target.value);
-                }}
+                value={formData.address}
+                onChange={handleInputChange}
               />
             </div>
 
             <button className="btn-register" type="submit">
-              submit
+              Submit
             </button>
+            <Link to="/guest/login">Login</Link>
           </form>
         </div>
+        <ToastContainer />
       </div>
     </>
   );
