@@ -1,48 +1,43 @@
 import { useState, useEffect } from "react";
 import "../styles/Login.css";
-import axios from "axios";
+import {api as apiCall} from '../config/axios.js'
 import LoginImage from "../assets/image/login.png";
+import "react-toastify/dist/ReactToastify.css";
+import { Link, useNavigate } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
 const Login = () => {
-  const [users, setUsers] = useState([]);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginCred,setLoginCred]  = useState({
+    email : "",
+    password : ""
+  })
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  const handleInputChange = (e) =>{
+    setLoginCred({
+      ...loginCred,
+      [e.target.name] : e.target.value,
+    })
+  }
 
-  const fetchUsers = () => {
-    axios.get("http://localhost:3001/register").then((res) => {
-      console.log(res.data);
-    });
-  };
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/login", {
-        username,
-        password,
-      });
-      const token = response.data.token;
-      alert("Login successful");
-      setUsername("");
-      setPassword("");
-      fetchUsers();
-      navigate("/guest");
-      window.location.reload();
-      localStorage.setItem("token", token);
+      const response = await apiCall.post("/auth/login",loginCred);
+      if(response.data.success === true){
+         const token = response.data.accessToken;
+         localStorage.setItem("accessToken", token);
+         navigate('/home/dashboard')
+      }else{
+        console.log(response.data.message)
+      }
+      // window.location.reload();
+     
     } catch (error) {
       console.log("Login Error", error);
     }
   };
-  const handleRegisterClick = () => {
-    console.log("Register link clicked");
-    navigate("/signup");
-  };
+ 
   return (
     <>
       <div className="container-signin">
@@ -52,15 +47,15 @@ const Login = () => {
           </div>
           <div className="right-container-signin">
             <h3>Member Login</h3>
-            <form action="" onSubmit={handleLogin}>
+            <form onSubmit={handleLogin}>
               <div>
                 <input
-                  type="username"
-                  placeholder="username"
+                  type="text"
+                  name="email"
+                  placeholder="Email"
                   className="form-input"
-                  value={username}
-                  id="username"
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={loginCred.email}
+                  onChange={handleInputChange}
                 />
               </div>
               <div>
@@ -69,14 +64,15 @@ const Login = () => {
                   type="password"
                   placeholder="Password"
                   className="form-input"
-
+                  name="password"
                   id="password"
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handleInputChange}
                 />
               </div>
               <button className="btn-signin" type="submit">
                 login{" "}
               </button>
+             <Link to="/guest/register">Register</Link>
               <p>forgot <a href="#">username</a>/ <a href="#">password</a></p>
             </form>
             

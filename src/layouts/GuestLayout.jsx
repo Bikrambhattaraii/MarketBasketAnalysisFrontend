@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 const GuestLayout = () => {
   return (
     <>
-      <div>GuestLayout</div>
+      {/* <div>GuestLayout</div> */}
       <Outlet />
     </>
   );
