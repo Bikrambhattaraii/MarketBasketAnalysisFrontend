@@ -1,10 +1,21 @@
-import {createBrowserRouter} from 'react-router-dom'
-import Login from './pages/Login'
-import Home from './pages/Home'
-import SignUp from './pages/signUp';
-import LandingPage from './pages/LandingPage';
-import GuestLayout from './layouts/GuestLayout';
-import UserLayout from './layouts/UserLayout';
+import { createBrowserRouter } from "react-router-dom";
+
+//component pages
+import Profile from "./pages/Profile";
+import Analyze from "./pages/Analyze";
+import DataUpload from "./pages/DataUpload";
+import Energy from "./pages/Energy";
+import Result from "./pages/Result";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import SignUp from "./pages/signUp";
+
+//independent landing page
+import LandingPage from "./pages/LandingPage";
+
+//parent layouts
+import GuestLayout from "./layouts/GuestLayout";
+import UserLayout from "./layouts/UserLayout";
 //router paths
 const router = createBrowserRouter([
   //independent page
@@ -45,6 +56,26 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "analyze",
+        element: <Analyze />,
+      },
+      {
+        path: "result",
+        element: <Result />,
+      },
+      {
+        path: "energy",
+        element: <Energy />,
+      },
+      {
+        path: "upload",
+        element: <DataUpload />,
       },
     ],
   },
