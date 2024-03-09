@@ -2,9 +2,10 @@ import { FaUserNinja, FaEnvelope, FaLock } from "react-icons/fa6";
 import "../styles/signUp.css";
 import { useState } from "react";
 import {api as apiCall} from "../config/axios.js";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { handleError,handleSuccess } from "../utils/toast.js";
 import { Link} from 'react-router-dom'
+import { ToastContainer } from "react-toastify";
+
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -34,7 +35,8 @@ const SignUp = () => {
         }
       )
       .then((res) => {
-        if (res.data.success === true) {
+        const rdata = res.data;
+        if (rdata.success === true) {
           event.target.reset();
           setFormData({
             username: "",
@@ -45,16 +47,15 @@ const SignUp = () => {
             address: "",
           });
           setShopLogo(null);
-          //  console.log(res.data.message);
-          toast.success(res.data.message);
+          handleSuccess(rdata.message)
         } else {
           // console.log(res.data.message.errors[0].message)
-          toast.warn(res.data.message.errors[0].message);
+          handleError(rdata.message.errors[0].message); //TODO
         }
       })
       .catch((error) => {
         // console.error("Error registering user:", error.message);
-        toast.error(error.message);
+       handleError(error.message);
       });
   };
 

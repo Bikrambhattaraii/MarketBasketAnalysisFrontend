@@ -1,43 +1,48 @@
 import { useState, useEffect } from "react";
 import "../styles/Login.css";
-import {api as apiCall} from '../config/axios.js'
+import { api as apiCall } from "../config/axios.js";
 import LoginImage from "../assets/image/login.png";
-import "react-toastify/dist/ReactToastify.css";
+ import { ToastContainer } from "react-toastify";
+import { useStateContext } from "../context/ContextProvider";
 import { Link, useNavigate } from "react-router-dom";
+import { handleError, handleSuccess } from "../utils/toast.js";
 
 const Login = () => {
-  const [loginCred,setLoginCred]  = useState({
-    email : "",
-    password : ""
-  })
+  const { settingUser, settingToken, toastMessage, settingToastMessage } =
+    useStateContext();
+
+  const [loginCred, setLoginCred] = useState({
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
 
-  const handleInputChange = (e) =>{
+  const handleInputChange = (e) => {
     setLoginCred({
       ...loginCred,
-      [e.target.name] : e.target.value,
-    })
-  }
-
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await apiCall.post("/auth/login",loginCred);
-      if(response.data.success === true){
-         const token = response.data.accessToken;
-         localStorage.setItem("accessToken", token);
-         navigate('/home/dashboard')
-      }else{
-        console.log(response.data.message)
+      const response = await apiCall.post("/auth/login", loginCred);
+      if (response.data.success === true) {
+        const token = response.data.accessToken;
+        settingUser(response.data.authUser);
+        settingToken(token);
+        settingToastMessage("Login Successfull");
+        navigate("/home/dashboard");
+      } else {
+        // console.log(response.data)
+        handleError(response.data.message);
       }
-      // window.location.reload();
-     
     } catch (error) {
-      console.log("Login Error", error);
+      handleError(error.message);
     }
   };
- 
+
   return (
     <>
       <div className="container-signin">
@@ -72,12 +77,14 @@ const Login = () => {
               <button className="btn-signin" type="submit">
                 login{" "}
               </button>
-             <Link to="/guest/register">Register</Link>
-              <p>forgot <a href="#">username</a>/ <a href="#">password</a></p>
+              <Link to="/guest/register">Register</Link>
+              <p>
+                forgot <a href="#">username</a>/ <a href="#">password</a>
+              </p>
             </form>
-            
           </div>{" "}
         </div>
+        <ToastContainer />
       </div>
     </>
   );

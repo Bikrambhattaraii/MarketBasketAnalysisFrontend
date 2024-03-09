@@ -1,23 +1,22 @@
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState ,useEffect} from "react";
 const stateContext = createContext({
   user: null,
   token: null,
   toastMessage: null,
-  isAdmin: true,
+  // isAdmin: true,
   settingToastMessage: () => {},
   settingToken: () => {},
   settingUser: () => {},
-  settingIsAdmin: () => {},
+  // settingIsAdmin: () => {},
 });
 
 export const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [token, setToken] = useState(sessionStorage.getItem("access_token"));
   const [toastMessage, setToastMessage] = useState(
     localStorage.getItem("toastMessage")
   );
-  const [isAdmin, setIsAdmin] = useState(true);
-  // const [token,setToken] = useState(null);
+  // const [isAdmin, setIsAdmin] = useState(true);
 
   const settingToastMessage = (message) => {
     setToastMessage(message);
@@ -27,9 +26,10 @@ export const ContextProvider = ({ children }) => {
       localStorage.removeItem("toastMessage");
     }
   };
-  const settingIsAdmin = (isAdmin) => {
-    setIsAdmin(isAdmin);
-  };
+  // const settingIsAdmin = (isAdmin) => {
+  //   setIsAdmin(isAdmin);
+  // };
+  
   const settingToken = (token) => {
     setToken(token);
     if (token) {
@@ -42,13 +42,16 @@ export const ContextProvider = ({ children }) => {
   const settingUser = (user) => {
     setUser(user);
     if (user) {
-      sessionStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(user));
     } else {
-      sessionStorage.removeItem("user");
+      localStorage.removeItem("user");
     }
   };
 
   //for getting user
+
+
+
 
   return (
     <stateContext.Provider
@@ -59,8 +62,6 @@ export const ContextProvider = ({ children }) => {
         settingUser,
         token,
         settingToken,
-        isAdmin,
-        settingIsAdmin,
       }}
     >
       {children}
