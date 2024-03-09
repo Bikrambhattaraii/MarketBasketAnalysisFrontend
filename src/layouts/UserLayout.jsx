@@ -4,6 +4,7 @@ import { SlEnergy } from "react-icons/sl";
 import { TbAnalyze } from "react-icons/tb";
 import { protectedApi } from "../config/axios.js";
 import { useEffect } from "react";
+import { handleSuccess } from "../utils/toast.js";
 import {
   FaTachometerAlt,
   FaChartBar,
@@ -11,26 +12,63 @@ import {
   FaUpload,
   FaRegGem,
 } from "react-icons/fa";
-
+import { useStateContext } from "../context/ContextProvider";
 import dummyProfile from "../assets/image/login.png";
+import { ToastContainer } from "react-toastify";
 
 const UserLayout = () => {
-  // const token = localStorage.getItem("accessToken");
-  // const navigate = useNavigate();
-  // if (!token) {
-  //   navigate("/guest/login");
-  // }
+  const {
+    user,
+    settingUser,
+    token,
+    settingToken,
+    toastMessage,
+    settingToastMessage,
+  } = useStateContext();
+  // console.log(!token)
+  if (!token) {
+    return <Navigate to="/guest/login" />;
+  }
 
-  // const handleLogout = (e) => {
-  //   e.preventDefault();
-  //   axiosClient.post("/logout").then(() => {
-  //     settingUser(null);
-  //     settingToken(null);
-  //     settingIsAdmin(true);
-  //   });
-  // };
+  // console.log(user)
+  useEffect(() => {
+    if (toastMessage !== null) {
+      handleSuccess(toastMessage);
+      settingToastMessage(null);
+    }
+    const checkToken = async () => {
+      try {
+        const res = await protectedApi.get("/auth/test");
+        if (res.data.status == 401 || res.data.status == 403) {
+          settingUser(null);
+          settingToken(null);
+          return <Navigate to="/login/guest" />;
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+    checkToken();
 
-  const handleLogout = () => {};
+    const interval = setInterval(() => {
+      protectedApi.get("/auth/refresh").then((res) => {
+        const token = res.data.accessToken;
+        console.log(token);
+        settingToken(token);
+      });
+    }, 18000000); //every 5 hrs
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    protectedApi.post("/auth/logout").then(() => {
+      settingUser(null);
+      settingToken(null);
+    });
+  };
+
   const sideBarLinks = [
     {
       id: 1,
@@ -112,6 +150,7 @@ const UserLayout = () => {
               <Outlet />
             </div>
           </div>
+          <ToastContainer />
         </div>
       </>
     </>
