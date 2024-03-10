@@ -10,15 +10,20 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import SignUp from "./pages/signUp";
 
-//independent landing page
+//independent pages
 import LandingPage from "./pages/LandingPage";
+import EsewaError from "./pages/EsewaError";
+import EsewaSuccess from "./pages/EsewaSuccess";
+//TODO- 404 page
 
 //parent layouts
 import GuestLayout from "./layouts/GuestLayout";
 import UserLayout from "./layouts/UserLayout";
+
 //router paths
 const router = createBrowserRouter([
   //independent page
+
   {
     path: "/",
     element: <LandingPage />,
@@ -79,5 +84,13 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/esewa-payment-error",
+    element : <EsewaError />
+  },
+  {
+    path : "/esewa-payment-success",
+    element : <EsewaSuccess />
+  }
 ]);
 export default router;

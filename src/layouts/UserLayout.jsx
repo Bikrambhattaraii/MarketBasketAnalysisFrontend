@@ -13,7 +13,6 @@ import {
   FaRegGem,
 } from "react-icons/fa";
 import { useStateContext } from "../context/ContextProvider";
-import dummyProfile from "../assets/image/login.png";
 import { ToastContainer } from "react-toastify";
 
 const UserLayout = () => {
@@ -76,12 +75,12 @@ const UserLayout = () => {
       icon: <FaTachometerAlt />,
       link: "/home/dashboard",
     },
-    {
-      id: 2,
-      name: "Profile",
-      icon: <FaChartBar />,
-      link: "/home/profile",
-    },
+    // {
+    //   id: 2,
+    //   name: "Profile",
+    //   icon: <FaChartBar />,
+    //   link: "/home/profile",
+    // },
     {
       id: 3,
       name: "Energy",
@@ -90,7 +89,7 @@ const UserLayout = () => {
     },
     {
       id: 4,
-      name: "Data upload",
+      name: "Perform MBA",
       icon: <FaUpload />,
       link: "/home/upload",
     },
@@ -136,8 +135,7 @@ const UserLayout = () => {
           <div className="user_dashboard_content">
             <div className="user_navbar">
               <div className="user_profile">
-                <img src={dummyProfile} alt="Profile Picture" />
-                <span>Hello Static User</span>
+                <span>Hello {user.username}</span>
               </div>
 
               <div className="user_handle">
@@ -147,7 +145,7 @@ const UserLayout = () => {
               </div>
             </div>
             <div className="user_dashboard_main_content">
-              <Outlet />
+              <Outlet user={user}/>
             </div>
           </div>
           <ToastContainer />

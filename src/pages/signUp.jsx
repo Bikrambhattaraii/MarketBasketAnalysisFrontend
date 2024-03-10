@@ -16,7 +16,6 @@ const SignUp = () => {
     owner_name: "",
     address: "",
   });
-  const [shopLogo, setShopLogo] = useState(null);
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -29,10 +28,7 @@ const SignUp = () => {
     apiCall
       .post(
         "/auth/register",
-        { ...formData, shop_logo: shopLogo },
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
+        { ...formData },
       )
       .then((res) => {
         const rdata = res.data;
@@ -46,16 +42,15 @@ const SignUp = () => {
             owner_name: "",
             address: "",
           });
-          setShopLogo(null);
           handleSuccess(rdata.message)
         } else {
-          // console.log(res.data.message.errors[0].message)
-          handleError(rdata.message.errors[0].message); //TODO
+          console.log(res.data.message.errors)
+          //handleError(rdata.message.errors[0].message); //TODO
         }
       })
       .catch((error) => {
-        // console.error("Error registering user:", error.message);
-       handleError(error.message);
+         console.error("Error registering user:", error.message);
+      // handleError(error.message);
       });
   };
 
@@ -122,15 +117,6 @@ const SignUp = () => {
                 value={formData.owner_name}
                 placeholder="Shop Owner name"
                 onChange={handleInputChange}
-              />
-            </div>
-            <div className="image-upload-container">
-              <label>Shop Logo:</label>
-              <input
-                type="file"
-                accept="image/*"
-                name="shop_logo"
-                onChange={(e) => setShopLogo(e.target.files[0])}
               />
             </div>
             <div>
