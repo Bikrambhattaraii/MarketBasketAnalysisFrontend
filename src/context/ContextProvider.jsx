@@ -3,7 +3,9 @@ const stateContext = createContext({
   user: null,
   token: null,
   toastMessage: null,
+  energyCount : null,
   // isAdmin: true,
+  settingEnergyCount : ()=>{},
   settingToastMessage: () => {},
   settingToken: () => {},
   settingUser: () => {},
@@ -13,9 +15,8 @@ const stateContext = createContext({
 export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [token, setToken] = useState(sessionStorage.getItem("access_token"));
-  const [toastMessage, setToastMessage] = useState(
-    localStorage.getItem("toastMessage")
-  );
+  const [toastMessage, setToastMessage] = useState(localStorage.getItem("toastMessage"));
+  const [energyCount,setEnergyCount] = useState(localStorage.getItem("energyCount"));
   // const [isAdmin, setIsAdmin] = useState(true);
 
   const settingToastMessage = (message) => {
@@ -26,6 +27,14 @@ export const ContextProvider = ({ children }) => {
       localStorage.removeItem("toastMessage");
     }
   };
+  const settingEnergyCount = (val) =>{
+    setEnergyCount(val);
+    if(val){
+      localStorage.setItem("energyCount",val);
+    }else{
+      localStorage.removeItem("energyCount");
+    }
+  }
   // const settingIsAdmin = (isAdmin) => {
   //   setIsAdmin(isAdmin);
   // };
@@ -62,6 +71,8 @@ export const ContextProvider = ({ children }) => {
         settingUser,
         token,
         settingToken,
+        energyCount,
+        settingEnergyCount
       }}
     >
       {children}

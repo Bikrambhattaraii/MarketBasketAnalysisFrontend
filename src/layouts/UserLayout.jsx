@@ -23,6 +23,8 @@ const UserLayout = () => {
     settingToken,
     toastMessage,
     settingToastMessage,
+    energyCount,
+    settingEnergyCount
   } = useStateContext();
   // console.log(!token)
   if (!token) {
@@ -41,6 +43,7 @@ const UserLayout = () => {
         if (res.data.status == 401 || res.data.status == 403) {
           settingUser(null);
           settingToken(null);
+          settingEnergyCount(null);
           return <Navigate to="/login/guest" />;
         }
       } catch (error) {
@@ -52,7 +55,7 @@ const UserLayout = () => {
     const interval = setInterval(() => {
       protectedApi.get("/auth/refresh").then((res) => {
         const token = res.data.accessToken;
-        console.log(token);
+        //console.log(token);
         settingToken(token);
       });
     }, 18000000); //every 5 hrs
@@ -65,6 +68,7 @@ const UserLayout = () => {
     protectedApi.post("/auth/logout").then(() => {
       settingUser(null);
       settingToken(null);
+      settingEnergyCount(null);
     });
   };
 
@@ -137,6 +141,15 @@ const UserLayout = () => {
               <div className="user_profile">
                 <span>Hello {user.username}</span>
               </div>
+              <div className="user_profile">
+                <span
+                  style={{
+                    color: energyCount > 0 ? "green" : "red",
+                  }}
+                >
+                  Energy {energyCount}
+                </span>
+              </div>
 
               <div className="user_handle">
                 <button onClick={handleLogout}>
@@ -145,7 +158,7 @@ const UserLayout = () => {
               </div>
             </div>
             <div className="user_dashboard_main_content">
-              <Outlet user={user}/>
+              <Outlet user={user} />
             </div>
           </div>
           <ToastContainer />

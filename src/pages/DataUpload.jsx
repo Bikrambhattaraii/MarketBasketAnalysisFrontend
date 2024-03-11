@@ -3,9 +3,10 @@ import "../styles/dataupload.css";
 import { SlEnergy } from "react-icons/sl";
 import { useStateContext } from "../context/ContextProvider";
 import { protectedApi } from "../config/axios.js";
+import { handleError, handleSuccess } from "../utils/toast.js";
 
 const DataUpload = () => {
-  const { user } = useStateContext();
+  const { user ,settingEnergyCount} = useStateContext();
   const [formData, setFormData] = useState({
     min_support: null,
     min_confidence: null,
@@ -21,18 +22,38 @@ const DataUpload = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (user.Energy.energy_count < 1) {
+      handleError("You don't have enough energy! Please purchase some");
+      return;
+    }
     try {
+      //console.log(formData, user.id);
+      const res1 = await protectedApi.post("/energy/check-energy", {
+        userId: user.id,
+      });
+      if (res1.data.success !== true) {
+        handleError(res1.data.message);
+        return;
+      }
       const response = await protectedApi.post(
         "/analysis/upload",
-        { ...formData, userId: user.id, dfile },
+        { userId: user.id, dfile, ...formData },
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         }
       );
-      console.log(response.data);
+      if (response.data.success === true) {
+        handleSuccess(response.data.message);
+        settingEnergyCount(response.data.energy_count);
+      }
+      if (response.data.success === false) {
+        handleError(response.data.message);
+      }
+      console.log(response.data.message);
     } catch (err) {
+      handleError(err?.message || "Something went wrong");
       console.log(err);
     }
   };
