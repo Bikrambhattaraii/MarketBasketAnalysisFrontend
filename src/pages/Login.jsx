@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { handleError, handleSuccess } from "../utils/toast.js";
 
 const Login = () => {
-  const { settingUser, settingToken, toastMessage, settingToastMessage } =
+  const { settingUser, settingToken, toastMessage, settingToastMessage,settingEnergyCount } =
     useStateContext();
 
   const [loginCred, setLoginCred] = useState({
@@ -29,9 +29,10 @@ const Login = () => {
     try {
       const response = await apiCall.post("/auth/login", loginCred);
       if (response.data.success === true) {
-        const token = response.data.accessToken;
-        settingUser(response.data.authUser);
-        settingToken(token);
+        const {accessToken,authUser} = response.data;
+        settingUser(authUser);
+        settingToken(accessToken);
+        settingEnergyCount(authUser.Energy.energy_count);
         settingToastMessage("Login Successfull");
         navigate("/home/dashboard");
       } else {

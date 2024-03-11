@@ -4,9 +4,8 @@ import { protectedApi } from "../config/axios";
 import { useStateContext } from "../context/ContextProvider";
 
 const Energy = () => {
-  const {user} = useStateContext();
-  const [quantity,setQuantity] = useState(null);
-
+  const {user,settingEnergyCount} = useStateContext();
+  const [quantity,setQuantity] = useState(null); 
 
   const paymentGateway = (formData) => {
     console.log(formData);
