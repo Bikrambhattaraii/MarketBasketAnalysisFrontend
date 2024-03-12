@@ -1,11 +1,10 @@
 import { FaUserNinja, FaEnvelope, FaLock } from "react-icons/fa6";
 import "../styles/signUp.css";
 import { useState } from "react";
-import {api as apiCall} from "../config/axios.js";
-import { handleError,handleSuccess } from "../utils/toast.js";
-import { Link} from 'react-router-dom'
+import { api as apiCall } from "../config/axios.js";
+import { handleError, handleSuccess } from "../utils/toast.js";
+import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -26,10 +25,7 @@ const SignUp = () => {
   const handleRegister = (event) => {
     event.preventDefault();
     apiCall
-      .post(
-        "/auth/register",
-        { ...formData },
-      )
+      .post("/auth/register", { ...formData })
       .then((res) => {
         const rdata = res.data;
         if (rdata.success === true) {
@@ -42,23 +38,23 @@ const SignUp = () => {
             owner_name: "",
             address: "",
           });
-          handleSuccess(rdata.message)
+          handleSuccess(rdata.message);
         } else {
-          console.log(res.data.message.errors)
+          console.log(res.data.message.errors);
           //handleError(rdata.message.errors[0].message); //TODO
         }
       })
       .catch((error) => {
-         console.error("Error registering user:", error.message);
-      // handleError(error.message);
+        console.error("Error registering user:", error.message);
+        // handleError(error.message);
       });
   };
 
   return (
     <>
       <div className="container-signup">
-        <h3>Sign Up</h3>
         <div className="signup-container-form">
+          <h1>Signup</h1>
           <form onSubmit={handleRegister}>
             <div className="username-container">
               <label> Name:</label>
@@ -134,7 +130,16 @@ const SignUp = () => {
             <button className="btn-register" type="submit">
               Submit
             </button>
-            <Link to="/guest/login">Login</Link>
+
+            <div className="signup">
+              <span>
+                Already have an account?
+                <a >
+                  {" "}
+                  <Link to="/guest/login">Login</Link>
+                </a>
+              </span>
+            </div>
           </form>
         </div>
         <ToastContainer />

@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
 import "../styles/Login.css";
 import { api as apiCall } from "../config/axios.js";
-import LoginImage from "../assets/image/login.png";
- import { ToastContainer } from "react-toastify";
+import LoginImage from "../assets/image/hsss-removebg-preview.png";
+import { ToastContainer } from "react-toastify";
 import { useStateContext } from "../context/ContextProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { handleError, handleSuccess } from "../utils/toast.js";
 
 const Login = () => {
-  const { settingUser, settingToken, toastMessage, settingToastMessage,settingEnergyCount } =
-    useStateContext();
+  const {
+    settingUser,
+    settingToken,
+    toastMessage,
+    settingToastMessage,
+    settingEnergyCount,
+  } = useStateContext();
 
   const [loginCred, setLoginCred] = useState({
     email: "",
@@ -29,7 +34,7 @@ const Login = () => {
     try {
       const response = await apiCall.post("/auth/login", loginCred);
       if (response.data.success === true) {
-        const {accessToken,authUser} = response.data;
+        const { accessToken, authUser } = response.data;
         settingUser(authUser);
         settingToken(accessToken);
         settingEnergyCount(authUser.Energy.energy_count);
@@ -48,13 +53,13 @@ const Login = () => {
     <>
       <div className="container-signin">
         <div className="form-container">
-          <div className="left-container-signin">
+          {/* <div className="left-container-signin">
             <img src={LoginImage} alt="" />
-          </div>
-          <div className="right-container-signin">
-            <h3>Member Login</h3>
+          </div> */}
+          <div className="wrapper">
+            <h3 className="title">Member Login</h3>
             <form onSubmit={handleLogin}>
-              <div>
+              <div className="field">
                 <input
                   type="text"
                   name="email"
@@ -64,7 +69,7 @@ const Login = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div>
+              <div className="field">
                 {" "}
                 <input
                   type="password"
@@ -75,13 +80,20 @@ const Login = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <button className="btn-signin" type="submit">
-                login{" "}
-              </button>
-              <Link to="/guest/register">Register</Link>
-              <p>
-                forgot <a href="#">username</a>/ <a href="#">password</a>
-              </p>
+              <div className="checkbox">
+                  <input type="checkbox" id="remember-me" />
+                  <label for="remember-me" className="rememberme">Remember me</label>
+               </div>
+              <div className="field">
+                <input  type="submit" value="login" />
+                  
+              </div>
+             
+              <div class="signup-link">
+                Not a member? 
+                  <Link to="/guest/register" ><a href="#">
+                  Signup now</a></Link>
+              </div>
             </form>
           </div>{" "}
         </div>
