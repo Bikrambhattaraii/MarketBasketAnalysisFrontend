@@ -10,7 +10,9 @@ const History = () => {
   useEffect(() => {
     const getAllData = async () => {
       try {
-        const response =await protectedApi.get(`/analysis/allAnalysis/${user.id}`);
+        const response = await protectedApi.get(
+          `/analysis/allAnalysis/${user.id}`
+        );
         if (response.data.success === true) {
           setAllData(response.data.historyData);
         }
@@ -21,17 +23,17 @@ const History = () => {
     getAllData();
   }, []);
 
-  const handelDelete =async (id) =>{
-    try{
+  const handelDelete = async (id) => {
+    try {
       const res = await protectedApi.delete(`/analysis/delete/${id}`);
-      if(res.data.success === true){
+      if (res.data.success === true) {
         handleSuccess(res.data.message);
-        setAllData((prev)=>prev.filter(item=>item.id !== id));
+        setAllData((prev) => prev.filter((item) => item.id !== id));
       }
-    }catch(err){
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
   return (
     <>
@@ -51,10 +53,22 @@ const History = () => {
                     padding: "20px",
                   }}
                 >
-                  <p style={{color: "white"}}>Dataset Title : {data.title}</p>
+                  <p style={{ color: "black" ,fontWeight :"bolder"}}>Dataset Title : {data.title}</p>
                   <br />
-                  <button style={{ marginLeft: "10px" }} onClick={()=>handelDelete(data.id)}>Delete</button>
-                  <button style={{ marginLeft: "10px" }}><Link to={`/home/detail/${data.id}`}>Show Result</Link></button>
+                  <button
+                    style={{ marginLeft: "10px", backgroundColor: "red" }}
+                    onClick={() => handelDelete(data.id)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    style={{
+                      marginLeft: "10px",
+                      backgroundColor: "#f1c40f",
+                    }}
+                  >
+                    <Link to={`/home/detail/${data.id}`}>Show Result</Link>
+                  </button>
                   <button style={{ marginLeft: "10px" }}>Show Data</button>
                 </div>
               </>
@@ -66,4 +80,4 @@ const History = () => {
   );
 };
 export default History;
-9804363784
+9804363784;

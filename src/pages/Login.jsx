@@ -80,10 +80,10 @@ const Login = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="checkbox">
+              {/* <div className="checkbox">
                   <input type="checkbox" id="remember-me" />
                   <label for="remember-me" className="rememberme">Remember me</label>
-               </div>
+               </div> */}
               <div className="field">
                 <input  type="submit" value="login" />
                   

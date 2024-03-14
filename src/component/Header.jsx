@@ -11,7 +11,7 @@ export const Header = () => {
         <ul className="nav-items">
           <li>Home</li>
           <li>About</li>
-          <li>
+          {/* <li>
           
             Features <BiSolidDownArrow size={17} className="icon-dropdown"/>
             <ul className="options-list">
@@ -39,9 +39,9 @@ export const Header = () => {
                 </div>{" "}
               </li>
             </ul>
-          </li>
+          </li> */}
           <li>Pricing</li>
-          <li>
+          {/* <li>
             resources
             <BiSolidDownArrow className="icon-dropdown" />
 
@@ -72,7 +72,7 @@ export const Header = () => {
                 </div>
               </li>
             </ul>
-          </li>
+          </li> */}
           <li>Contact</li>
         </ul>
       </nav>

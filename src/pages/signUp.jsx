@@ -26,6 +26,11 @@ const SignUp = () => {
   const handleRegister = (event) => {
     event.preventDefault();
     setLoading(true);
+    if(formData.username == "" || formData.email == "" || formData.password == "" || formData.shop_name == "" || formData.owner_name == "" || formData.address == ""){
+      handleError("All fileds are mandatory");
+      setLoading(false);
+      return;
+    }
     apiCall
       .post("/auth/register", { ...formData })
       .then((res) => {
@@ -44,7 +49,7 @@ const SignUp = () => {
           setLoading(false);
         } else {
           setLoading(false)
-          let error = rdata.message.errors[0].message || "Something went wrong"
+          let error = rdata.message || "Something went wrong"
           handleError(error); //TODO
         }
       })
