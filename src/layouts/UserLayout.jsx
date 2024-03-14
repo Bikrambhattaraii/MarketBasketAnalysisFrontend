@@ -1,7 +1,6 @@
 import { Outlet, Navigate, NavLink } from "react-router-dom";
 import "../styles/defaultlayout.css";
 import { SlEnergy } from "react-icons/sl";
-import { TbAnalyze } from "react-icons/tb";
 import { protectedApi } from "../config/axios.js";
 import { useEffect } from "react";
 import { handleSuccess } from "../utils/toast.js";
@@ -11,9 +10,11 @@ import {
   FaSignOutAlt,
   FaUpload,
   FaRegGem,
+  FaHistory
 } from "react-icons/fa";
 import { useStateContext } from "../context/ContextProvider";
 import { ToastContainer } from "react-toastify";
+
 
 const UserLayout = () => {
   const {
@@ -24,7 +25,8 @@ const UserLayout = () => {
     toastMessage,
     settingToastMessage,
     energyCount,
-    settingEnergyCount
+    settingEnergyCount,
+    settingCurrentResult
   } = useStateContext();
   // console.log(!token)
   if (!token) {
@@ -46,6 +48,7 @@ const UserLayout = () => {
           settingEnergyCount(null);
           return <Navigate to="/login/guest" />;
         }
+        settingEnergyCount(res.data.energyCount);
       } catch (error) {
         console.error("Error fetching user:", error);
       }
@@ -69,6 +72,7 @@ const UserLayout = () => {
       settingUser(null);
       settingToken(null);
       settingEnergyCount(null);
+      settingCurrentResult(null);
     });
   };
 
@@ -99,9 +103,9 @@ const UserLayout = () => {
     },
     {
       id: 4,
-      name: "Analysis",
-      icon: <TbAnalyze color="white" />,
-      link: "/home/analyze",
+      name: "Past Analysis Data",
+      icon: <FaHistory />,
+      link: "/home/history",
     },
     {
       id: 5,

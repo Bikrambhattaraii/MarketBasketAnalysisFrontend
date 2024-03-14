@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 const SignUp = () => {
+  const [loading,setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -24,6 +25,7 @@ const SignUp = () => {
 
   const handleRegister = (event) => {
     event.preventDefault();
+    setLoading(true);
     apiCall
       .post("/auth/register", { ...formData })
       .then((res) => {
@@ -39,9 +41,11 @@ const SignUp = () => {
             address: "",
           });
           handleSuccess(rdata.message);
+          setLoading(false);
         } else {
-          console.log(res.data.message.errors);
-          //handleError(rdata.message.errors[0].message); //TODO
+          setLoading(false)
+          let error = rdata.message.errors[0].message || "Something went wrong"
+          handleError(error); //TODO
         }
       })
       .catch((error) => {
@@ -127,8 +131,8 @@ const SignUp = () => {
               />
             </div>
 
-            <button className="btn-register" type="submit">
-              Submit
+            <button className="btn-register" type="submit" disabled={loading}>
+              {loading ? "Registering....": "Register"}
             </button>
 
             <div className="signup">

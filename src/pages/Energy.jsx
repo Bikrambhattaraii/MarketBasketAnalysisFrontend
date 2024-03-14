@@ -4,11 +4,11 @@ import { protectedApi } from "../config/axios";
 import { useStateContext } from "../context/ContextProvider";
 
 const Energy = () => {
-  const {user,settingEnergyCount} = useStateContext();
-  const [quantity,setQuantity] = useState(null); 
+  const {user} = useStateContext();
+  const [quantityE,setQuantity] = useState(null); 
 
   const paymentGateway = (formData) => {
-    console.log(formData);
+   // console.log(formData);
     let form = document.createElement("form");
     form.setAttribute("method", "POST");
     form.setAttribute(
@@ -31,11 +31,14 @@ const Energy = () => {
  const handleSubmit =async (e) =>{
   e.preventDefault();
   try{
+    console.log(quantityE)
    const resp =  await protectedApi.post("/energy/order-energy",{
-      quantity,userId : user.id
+      quantity:quantityE,userId : user.id
     });
+    //console.log(resp)
     if(resp.data.success == true){
       //TODO handle other data
+      setQuantity(null)
       paymentGateway(resp.data.formData)
     }
   }catch(err){
@@ -49,7 +52,7 @@ const Energy = () => {
       <h2>Energy</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="quantity">Quantity:</label>
-        <input onChange={(e)=>setQuantity(e.target.value)} value={quantity} type="number" id="quantity" name="quantity" min="1" required />
+        <input onChange={(e)=>setQuantity(e.target.value)} value={quantityE} type="number" id="quantity" name="quantity" min="1" required />
         <button className="purchase_button" type="submit">Purchase</button>
       </form>
     </div>

@@ -3,16 +3,19 @@ import "../styles/dataupload.css";
 import { SlEnergy } from "react-icons/sl";
 import { useStateContext } from "../context/ContextProvider";
 import { protectedApi } from "../config/axios.js";
-import { handleError, handleSuccess } from "../utils/toast.js";
+import { handleError } from "../utils/toast.js";
+import { useNavigate } from 'react-router-dom';
 
 const DataUpload = () => {
-  const { user ,settingEnergyCount} = useStateContext();
+  const { user ,settingEnergyCount,settingCurrentResult,settingToastMessage} = useStateContext();
+  const [loading,setLoading] = useState(false);
   const [formData, setFormData] = useState({
     min_support: null,
     min_confidence: null,
     title: "",
   });
   const [dfile, setDfile] = useState(null);
+  const navigate = useNavigate();
 
   const handleInputChnage = (e) => {
     setFormData({
@@ -22,6 +25,7 @@ const DataUpload = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     if (user.Energy.energy_count < 1) {
       handleError("You don't have enough energy! Please purchase some");
       return;
@@ -45,16 +49,22 @@ const DataUpload = () => {
         }
       );
       if (response.data.success === true) {
-        handleSuccess(response.data.message);
+        e.target.reset();
+        settingToastMessage(response.data.message);
         settingEnergyCount(response.data.energy_count);
+        settingCurrentResult(response.data.result);
+        navigate("/home/result")
       }
       if (response.data.success === false) {
+        
         handleError(response.data.message);
       }
-      console.log(response.data.message);
+      console.log(response.data.error[0].message);
     } catch (err) {
-      handleError(err?.message || "Something went wrong");
+      
       console.log(err);
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -113,7 +123,10 @@ const DataUpload = () => {
         </div>
 
         <button type="submit">
+        {loading ? "Performing analysis... ": ( <>
           Perform Analysis <SlEnergy color="yellow" fontSize={20} />
+        </>)}
+         
         </button>
       </form>
     </div>
