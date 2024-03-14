@@ -33,19 +33,18 @@ const HistoryDetail = () => {
 
   return (
     <>
-      <div style={{display:"flex",justifyContent : "space-around"}}>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
         <h2>Detail Result </h2>
-        <Link style={{color:"red"}} to="/home/history">Go back</Link>
+        <Link style={{ color: "red" }} to="/home/history">
+          Go back
+        </Link>
       </div>
       {data && (
-        <> 
-          <p>{data.title}</p>
-           <DisplayResult data={data.result} />
+        <>
+          <p style={{ color: "#6c5ce7" ,fontWeight :"bolder" }}>Dataset title : {data.title}</p>
+          <DisplayResult data={data.result} />
         </>
-       
       )}
-    
-     
     </>
   );
 };

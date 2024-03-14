@@ -69,10 +69,10 @@ const UserLayout = () => {
   const handleLogout = (e) => {
     e.preventDefault();
     protectedApi.post("/auth/logout").then(() => {
-      settingUser(null);
-      settingToken(null);
       settingEnergyCount(null);
       settingCurrentResult(null);
+      settingUser(null);
+      settingToken(null);
     });
   };
 

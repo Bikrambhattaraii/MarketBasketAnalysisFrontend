@@ -7,7 +7,7 @@ import { handleError } from "../utils/toast.js";
 import { useNavigate } from 'react-router-dom';
 
 const DataUpload = () => {
-  const { user ,settingEnergyCount,settingCurrentResult,settingToastMessage} = useStateContext();
+  const { user ,energyCount,settingEnergyCount,settingCurrentResult,settingToastMessage} = useStateContext();
   const [loading,setLoading] = useState(false);
   const [formData, setFormData] = useState({
     min_support: null,
@@ -26,7 +26,7 @@ const DataUpload = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true)
-    if (user.Energy.energy_count < 1) {
+    if (energyCount < 1) {
       handleError("You don't have enough energy! Please purchase some");
       return;
     }

@@ -8,10 +8,10 @@
 }
 .container-signin{
   display: grid;
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
   place-items: center;
-  background: #f2f2f2;
+  background: #009579;
   padding: 100px;
   
 }
@@ -22,7 +22,7 @@
 .wrapper{
   width: 380px;
   background: #fff;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
 }
 .wrapper .title{
@@ -30,10 +30,10 @@
   font-weight: 600;
   text-align: center;
   line-height: 100px;
-  color: #fff;
+  color: black;
   user-select: none;
   border-radius: 15px 15px 0 0;
-  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  /* background: linear-gradient(-135deg, #c850c0, #4158d0); */
 }
 .wrapper form{
   padding: 10px 30px 50px 30px;
@@ -51,7 +51,7 @@
   font-size: 17px;
   padding-left: 20px;
   border: 1px solid lightgrey;
-  border-radius: 25px;
+  /* border-radius: 25px; */
   transition: all 0.3s ease;
 }
 .wrapper form .field input:focus,
@@ -111,7 +111,7 @@ form .field input[type="submit"]{
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
-  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  background: #009579;
   transition: all 0.3s ease;
 }
 form .field input[type="submit"]:active{

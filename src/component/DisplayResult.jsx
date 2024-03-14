@@ -1,23 +1,15 @@
-const DisplayResult = ({data}) => {
-  let parsedData = JSON.parse(data)
-  //console.log(JSON.parse(currentResult));
+const DisplayResult = ({ data }) => {
+  let parsedData = JSON.parse(data);
   const associationRules = parsedData.association_rules;
   const frequent_patterns = parsedData.frequent_patterns;
-  // console.log(associationRules);
-  //console.log(frequent_patterns)
-
-  // for(const [key,value] of Object.entries(frequent_patterns)){
-  //   console.log(`Key : ${key} and value : ${value}`)
-  // }
 
   const itemsAndCounts = {};
 
   for (const key in frequent_patterns) {
     const items = key
       .replace(/\(|\)|'/g, "") // Remove parentheses and single quotes
-      .split(",") // Split by ', ' to get individual items
+      .split(", ") // Split by ', ' to get individual items
       .map((item) => item.trim()); // Trim any leading/trailing spaces
-    //console.log(items)
     const count = frequent_patterns[key];
     itemsAndCounts[items.join(", ")] = count;
   }
@@ -29,7 +21,6 @@ const DisplayResult = ({data}) => {
       .replace(/\(|\)|'/g, "")
       .split(", ")
       .map((item) => item.trim());
-    //  console.log(antecedent)
 
     const [consequentItems, confidence] = associationRules[key];
     const rule = {
@@ -39,37 +30,89 @@ const DisplayResult = ({data}) => {
     };
     rules.push(rule);
   }
+  const sortedData = rules.sort((a, b) => b.confidence - a.confidence);
 
-  //console.log(rules);
+  // Calculate the index up to which to display (25% of the array length)
+  const splitIndex = Math.ceil(sortedData.length * 0.25);
 
+  // Slice the array to get the top 25%
+  const top25Percent = sortedData.slice(0, splitIndex);
+
+  // Display the top 25%
+  const displayData = top25Percent.map((item, index) => (
+    <div key={index} >
+      <p style={{fontWeight: "bolder"}}>
+        {" "}
+        {item.antecedent} <span style={{ color: "#e67e22",  fontSize : "32px"}}> and</span>{" "}
+        {item.consequent}{" "}
+      </p>
+    </div>
+  ));
   return (
     <>
-      <h4>Frequent Itemsets</h4>
-      <p>
-        These are the items frequently bought from you.Support count specifies
-        how many times the itemsets where bought comared to total transactions
-      </p>
       <div>
-        {Object.keys(itemsAndCounts).map((key) => (
-          <div key={key}>
-            <p>Items: {key}</p>
-            <p>Count: {itemsAndCounts[key]}</p>
-            <br />
-          </div>
-        ))}
+        <h1>Recommended</h1>
+        <p>
+          These items can be used for{" "}
+          <span style={{ color: "#8e44ad", fontWeight: "bolder" }}>
+            cross selling{" "}
+          </span>{" "}
+        </p>
+        {displayData}
       </div>
-      <br />
-      <h4>Strong Rules</h4>
-      <div>
-        {rules.map((rule, index) => (
-          <div key={index}>
-            <p>
-              {rule.antecedent} =&gt; {rule.consequent}
-            </p>
-            <p>Confidence: {rule.confidence * 100} %</p>
-            <br />
+      <div style={{ marginTop: "30px" }}>
+        <h4>Frequent Itemsets</h4>
+        <p>
+          These are the items frequently bought from you. Support count
+          specifies how many times the itemsets were bought compared to total
+          transactions
+        </p>
+        <div
+          style={{
+            height: "600px",
+            overflowY: "scroll",
+            borderRadius: "5px",
+            marginBottom: "50px",
+          }}
+        >
+          <div>
+            {Object.keys(itemsAndCounts).map((key) => (
+              <div
+                key={key}
+                style={{ backgroundColor: "#9b59b6", padding: "20px" }}
+              >
+                <p style={{ color: "white" }}>Itemsets : {key}</p>
+                <p style={{ color: "white" }}>
+                  Time bought together: {itemsAndCounts[key]}
+                </p>
+                <br />
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+        <h4>Strong Rules</h4>
+        <p>
+          These are the items that have a higher possibility of being bought
+          together
+        </p>
+        <div
+          style={{ height: "600px", overflowY: "scroll", borderRadius: "5px" }}
+        >
+          {rules.map((rule, index) => (
+            <div
+              key={index}
+              style={{ backgroundColor: "#9b59b6", padding: "20px" }}
+            >
+              <p style={{ color: "white" }}>
+                {rule.antecedent} =&gt; {rule.consequent}
+              </p>
+              <p style={{ color: "white" }}>
+                Confidence: {rule.confidence * 100} %
+              </p>
+              <br />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

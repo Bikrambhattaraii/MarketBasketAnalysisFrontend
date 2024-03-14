@@ -49,11 +49,30 @@ const Energy = () => {
   
   return (
     <div className="energy-form">
-      <h2>Energy</h2>
+      <div className="energy-info">
+        <h2 style={{ color: "#e67e22" }}>Energy</h2>
+        <p>
+          Energy is used to perform market basket analyses. Each analysis
+          requires one energy.
+        </p>
+        <p>Cost: Rs 20 per energy</p>
+      </div>
+
       <form onSubmit={handleSubmit}>
         <label htmlFor="quantity">Quantity:</label>
-        <input onChange={(e)=>setQuantity(e.target.value)} value={quantityE} type="number" id="quantity" name="quantity" min="1" required />
-        <button className="purchase_button" type="submit">Purchase</button>
+        <input
+          onChange={(e) => setQuantity(e.target.value)}
+          value={quantityE}
+          type="number"
+          id="quantity"
+          name="quantity"
+          min="1"
+          required
+          placeholder="i.e 1"
+        />
+        <button className="purchase_button" type="submit">
+          Purchase
+        </button>
       </form>
     </div>
   );
