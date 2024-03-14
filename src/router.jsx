@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 
 //component pages
-import Profile from "./pages/Profile";
-import Analyze from "./pages/Analyze";
+// import Profile from "./pages/Profile";
+import History from "./pages/History";
 import DataUpload from "./pages/DataUpload";
 import Energy from "./pages/Energy";
 import Result from "./pages/Result";
@@ -19,6 +19,7 @@ import EsewaSuccess from "./pages/EsewaSuccess";
 //parent layouts
 import GuestLayout from "./layouts/GuestLayout";
 import UserLayout from "./layouts/UserLayout";
+import HistoryDetail from "./pages/HistoryDetail";
 
 //router paths
 const router = createBrowserRouter([
@@ -62,13 +63,13 @@ const router = createBrowserRouter([
         path: "/home",
         element: <Home />,
       },
+      // {
+      //   path: "profile",
+      //   element: <Profile />,
+      // },
       {
-        path: "profile",
-        element: <Profile />,
-      },
-      {
-        path: "analyze",
-        element: <Analyze />,
+        path: "history",
+        element: <History />,
       },
       {
         path: "result",
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
         path: "upload",
         element: <DataUpload />,
       },
+      {
+        path: "detail/:dataId",
+        element : <HistoryDetail />
+      }
     ],
   },
   {

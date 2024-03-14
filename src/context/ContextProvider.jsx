@@ -1,11 +1,13 @@
-import { useContext, createContext, useState ,useEffect} from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 const stateContext = createContext({
   user: null,
   token: null,
   toastMessage: null,
-  energyCount : null,
+  energyCount: null,
+  currentResult: null,
   // isAdmin: true,
-  settingEnergyCount : ()=>{},
+  settingCurrentResult: () => {},
+  settingEnergyCount: () => {},
   settingToastMessage: () => {},
   settingToken: () => {},
   settingUser: () => {},
@@ -13,10 +15,17 @@ const stateContext = createContext({
 });
 
 export const ContextProvider = ({ children }) => {
+  const [currentResult, setCurrentResult] = useState(
+    JSON.parse(localStorage.getItem("c_result"))
+  );
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [token, setToken] = useState(sessionStorage.getItem("access_token"));
-  const [toastMessage, setToastMessage] = useState(localStorage.getItem("toastMessage"));
-  const [energyCount,setEnergyCount] = useState(localStorage.getItem("energyCount"));
+  const [toastMessage, setToastMessage] = useState(
+    localStorage.getItem("toastMessage")
+  );
+  const [energyCount, setEnergyCount] = useState(
+    localStorage.getItem("energyCount")
+  );
   // const [isAdmin, setIsAdmin] = useState(true);
 
   const settingToastMessage = (message) => {
@@ -27,18 +36,18 @@ export const ContextProvider = ({ children }) => {
       localStorage.removeItem("toastMessage");
     }
   };
-  const settingEnergyCount = (val) =>{
+  const settingEnergyCount = (val) => {
     setEnergyCount(val);
-    if(val){
-      localStorage.setItem("energyCount",val);
-    }else{
+    if (val) {
+      localStorage.setItem("energyCount", val);
+    } else {
       localStorage.removeItem("energyCount");
     }
-  }
+  };
   // const settingIsAdmin = (isAdmin) => {
   //   setIsAdmin(isAdmin);
   // };
-  
+
   const settingToken = (token) => {
     setToken(token);
     if (token) {
@@ -57,10 +66,15 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
+  const settingCurrentResult = (result) => {
+    setCurrentResult(result);
+    if (result) {
+      localStorage.setItem("c_result", JSON.stringify(result));
+    }else{
+      localStorage.removeItem("c_result");
+    }
+  };
   //for getting user
-
-
-
 
   return (
     <stateContext.Provider
@@ -72,7 +86,9 @@ export const ContextProvider = ({ children }) => {
         token,
         settingToken,
         energyCount,
-        settingEnergyCount
+        settingEnergyCount,
+        currentResult,
+        settingCurrentResult
       }}
     >
       {children}
