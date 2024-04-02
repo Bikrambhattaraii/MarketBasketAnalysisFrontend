@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import "../styles/Landingpage.css";
 
+
 import { Header } from "../component/Header";
 export default function LandingPage() {
+ 
   const plansData = [
     {
       name: "Basic",

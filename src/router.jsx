@@ -9,6 +9,7 @@ import Result from "./pages/Result";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import SignUp from "./pages/signUp";
+import Ecom from "./pages/Ecom";
 
 //independent pages
 import LandingPage from "./pages/LandingPage";
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       //   path: "profile",
       //   element: <Profile />,
       // },
+      {
+        path:"ecom",
+        element : <Ecom />
+      },
       {
         path: "history",
         element: <History />,
