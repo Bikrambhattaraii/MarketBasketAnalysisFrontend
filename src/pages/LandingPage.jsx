@@ -2,24 +2,34 @@ import { Link } from "react-router-dom";
 import "../styles/Landingpage.css";
 
 
-import { Header } from "../component/Header";
+
+
+
+import ButtonComponent from "../component/ButtonComponent";
+
 export default function LandingPage() {
  
   const plansData = [
     {
       name: "Basic",
       price: "$19/month",
-      features: ["1000 Transactions", "Email Support", "Basic Reporting"],
+      features: ["1000 Transactions  ✓",
+       "Email Support  ✓",
+        "Basic Reporting  ✓",
+        "24/7 support X",'Dedicated Account Manager X',
+      ],
+        
       buttonLabel: "choose a plan",
     },
     {
       name: "Pro",
       price: "$49/month",
       features: [
-        "Unlimited Transactions",
-        "Priority Email Support",
-        "Advanced Reporting",
-        "Item Recommendations",
+        "Unlimited Transactions ✓ ",
+        "Priority Email Support ✓",
+        "Advanced Reporting ✓",
+        "Item Recommendations ✓",
+        "Dedicated Account Manager X",
       ],
       buttonLabel: "choose a plan",
     },
@@ -27,11 +37,11 @@ export default function LandingPage() {
       name: "Enterprise",
       price: "100rs/month",
       features: [
-        "Custom Transactions",
-        "24/7 Support",
-        "Custom Reporting",
-        "Item Recommendations",
-        "Dedicated Account Manager",
+        "Custom Transactions ✓",
+        "24/7 Support ✓",
+        "Custom Reporting ✓",
+        "Item Recommendations ✓",
+        "Dedicated Account Manager ✓",
       ],
       buttonLabel: "choose a plan",
     },
@@ -39,12 +49,32 @@ export default function LandingPage() {
 
   return (
     <>
-      <Header />
-      <section className="container-landing-page-mainpage">
+      <nav className="nav-container">
+        <ul className="nav-items">
+          <li>
+            {" "}
+            <a href="#main">Home</a>
+          </li>
+          <li>
+            {" "}
+            <a href="#pricing">Pricing </a>
+          </li>
+          <li>
+            {" "}
+            <a href="#howto">How To use</a>
+          </li>
+          <li>
+            {" "}
+            <a href="#about">About </a>{" "}
+          </li>
+        </ul>
+      </nav>
+      <section id="main" className="container-landing-page-mainpage">
         <div>
           <div>
             <div>
               <h1>Welcome to Market Basket Analysis Platform</h1>
+              <h3> A Data mining platform</h3>
               <p>
                 Uncover hidden trends and patterns in your sales data. Our
                 platform uses advanced market basket analysis to help you
@@ -63,7 +93,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      <section className="container-pricing-plans">
+      <section id="pricing" className="container-pricing-plans">
         <div>
           <div>
             <div>
@@ -90,7 +120,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      <section className="container-how-to-use">
+      <section id="howto" className="container-how-to-use">
         <div>
           <div>
             <div>
@@ -133,7 +163,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      <section className="container-join-team">
+      <section id="about" className="container-join-team">
         <div>
           <div>
             <div>
