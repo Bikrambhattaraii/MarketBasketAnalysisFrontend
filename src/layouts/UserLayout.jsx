@@ -113,6 +113,12 @@ const UserLayout = () => {
       icon: <FaRegGem />,
       link: "/home/result",
     },
+    {
+      id: 6,
+      name: "Connect To Ecom",
+      icon: <FaRegGem />,
+      link: "/home/ecom",
+    },
   ];
 
   return (
