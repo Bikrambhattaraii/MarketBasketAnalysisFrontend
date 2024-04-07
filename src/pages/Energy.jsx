@@ -1,14 +1,14 @@
-import {useState} from "react";
+import { useState } from "react";
 import "../styles/energy.css"; // Assume this is the CSS file for styling
 import { protectedApi } from "../config/axios";
 import { useStateContext } from "../context/ContextProvider";
 
 const Energy = () => {
-  const {user} = useStateContext();
-  const [quantity,setQuantity] = useState(null); 
+  const { user } = useStateContext();
+  const [quantityE, setQuantity] = useState(null);
 
   const paymentGateway = (formData) => {
-   // console.log(formData);
+    // console.log(formData);
     let form = document.createElement("form");
     form.setAttribute("method", "POST");
     form.setAttribute(
@@ -28,25 +28,25 @@ const Energy = () => {
     form.submit();
   };
 
- const handleSubmit =async (e) =>{
-  e.preventDefault();
-  try{
-   // console.log(quantity)
-   const resp =  await protectedApi.post("/energy/order-energy",{
-      quantity:quantity,userId : user.id
-    });
-    //console.log(resp)
-    if(resp.data.success == true){
-      //TODO handle other data
-      setQuantity(null)
-      paymentGateway(resp.data.formData)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(quantityE);
+      const resp = await protectedApi.post("/energy/order-energy", {
+        quantity: quantityE,
+        userId: user.id,
+      });
+      //console.log(resp)
+      if (resp.data.success == true) {
+        //TODO handle other data
+        setQuantity(null);
+        paymentGateway(resp.data.formData);
+      }
+    } catch (err) {
+      console.log(err);
     }
-  }catch(err){
-    console.log(err)
-  }
- }
+  };
 
-  
   return (
     <div className="energy-form">
       <div className="energy-info">
@@ -62,7 +62,7 @@ const Energy = () => {
         <label htmlFor="quantity">Quantity:</label>
         <input
           onChange={(e) => setQuantity(e.target.value)}
-          value={quantity}
+          value={quantityE}
           type="number"
           id="quantity"
           name="quantity"
