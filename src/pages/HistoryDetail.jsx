@@ -42,6 +42,8 @@ const HistoryDetail = () => {
       {data && (
         <>
           <p style={{ color: "#6c5ce7" ,fontWeight :"bolder" }}>Dataset title : {data.title}</p>
+          <p>Min Confidence : {data.min_confidence}</p>
+          <p>Min Support : {data.min_support}</p>
           <DisplayResult data={data.result} />
         </>
       )}

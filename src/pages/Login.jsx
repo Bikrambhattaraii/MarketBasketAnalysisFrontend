@@ -9,6 +9,7 @@ import { handleError, handleSuccess } from "../utils/toast.js";
 
 const Login = () => {
   const {
+    user,
     settingUser,
     settingToken,
     toastMessage,
@@ -21,7 +22,6 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
-
   const handleInputChange = (e) => {
     setLoginCred({
       ...loginCred,
@@ -89,7 +89,7 @@ const Login = () => {
                   
               </div>
              
-              <div class="signup-link">
+              <div className="signup-link">
                 Not a member? 
                   <Link to="/guest/register" ><a href="#">
                   Signup now</a></Link>

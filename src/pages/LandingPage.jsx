@@ -97,26 +97,31 @@ export default function LandingPage() {
         <div>
           <div>
             <div>
-              <h2>Pricing Plans</h2>
+              <h2>Energy Buying</h2>
               <p>
-                Choose a plan that suits your needs. Whether you're a small
-                business or a large enterprise, we've got you covered.
+                Buy energy for analysis. Each energy costs 20 Rs. You get 1 free
+                energy to start with, after which you need to buy more. 1 energy
+                is used for each analysis.
               </p>
             </div>
           </div>
           <div className="plans-container">
-            {plansData.map((plan, index) => (
-              <div key={index} className="plans-card">
-                <h2>{plan.name}</h2>
-                <p>{plan.price}</p>
-                <ul>
-                  {plan.features.map((feature, i) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-                <button className="btn">{plan.buttonLabel}</button>
-              </div>
-            ))}
+            <div className="plans-card">
+              <h2>Free Energy</h2>
+              <p>Get one free energy on registration</p>
+              <ul>
+                <li>1 Free Energy</li>
+                <li>1 Energy per Analysis</li>
+              </ul>
+            </div>
+            <div className="plans-card">
+              <h2>Energy</h2>
+              <p>20 Rs per each energy</p>
+              <ul>
+                <li>1 Energy per Analysis</li>
+                <li>Payment Accepted : Esewa</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -157,6 +162,23 @@ export default function LandingPage() {
                 <p>
                   Use our platform to analyze your data. Uncover hidden trends
                   and patterns.
+                </p>
+              </div>
+            </div>
+            <div>
+              <div>
+                <h2>Step 4: Result visualization</h2>
+                <p>
+                 Visualize the results using different charts
+                </p>
+              </div>
+            </div>
+            <div>
+              <div>
+                <h2>Step 4(optional): Connect your ecommerce site directly</h2>
+                <p>
+                  Expose a endpoint in your ecommerce site to connect to this
+                  platform and perform analysis on your sells data
                 </p>
               </div>
             </div>

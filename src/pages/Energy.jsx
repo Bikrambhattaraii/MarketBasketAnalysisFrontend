@@ -5,7 +5,7 @@ import { useStateContext } from "../context/ContextProvider";
 
 const Energy = () => {
   const {user} = useStateContext();
-  const [quantityE,setQuantity] = useState(null); 
+  const [quantity,setQuantity] = useState(null); 
 
   const paymentGateway = (formData) => {
    // console.log(formData);
@@ -31,9 +31,9 @@ const Energy = () => {
  const handleSubmit =async (e) =>{
   e.preventDefault();
   try{
-    console.log(quantityE)
+   // console.log(quantity)
    const resp =  await protectedApi.post("/energy/order-energy",{
-      quantity:quantityE,userId : user.id
+      quantity:quantity,userId : user.id
     });
     //console.log(resp)
     if(resp.data.success == true){
@@ -62,7 +62,7 @@ const Energy = () => {
         <label htmlFor="quantity">Quantity:</label>
         <input
           onChange={(e) => setQuantity(e.target.value)}
-          value={quantityE}
+          value={quantity}
           type="number"
           id="quantity"
           name="quantity"

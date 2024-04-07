@@ -49,11 +49,13 @@ const History = () => {
                   key={data.id}
                   style={{
                     margin: "20px",
-                    backgroundColor: "#2ecc71",
+                    backgroundColor: "#9b59b6",
                     padding: "20px",
                   }}
                 >
-                  <p style={{ color: "black" ,fontWeight :"bolder"}}>Dataset Title : {data.title}</p>
+                  <p style={{ color: "white", fontWeight: "bolder" }}>
+                    Dataset Title : {data.title}
+                  </p>
                   <br />
                   <button
                     style={{ marginLeft: "10px", backgroundColor: "red" }}
@@ -69,7 +71,6 @@ const History = () => {
                   >
                     <Link to={`/home/detail/${data.id}`}>Show Result</Link>
                   </button>
-                  <button style={{ marginLeft: "10px" }}>Show Data</button>
                 </div>
               </>
             ))}

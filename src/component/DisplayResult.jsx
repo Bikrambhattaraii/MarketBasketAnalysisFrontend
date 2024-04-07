@@ -1,3 +1,7 @@
+import FrequentItemsetsCountChart from "./FrequentItemsetBar";
+import ConfidenceLevelDistribution from './ConfidenceDistributionBar'
+import SupportCountForItemsets  from './Chart3'
+import RuleConfidenceVsConsequentFrequency from "./chart4";
 const DisplayResult = ({ data }) => {
   let parsedData = JSON.parse(data);
   const associationRules = parsedData.association_rules;
@@ -40,16 +44,35 @@ const DisplayResult = ({ data }) => {
 
   // Display the top 25%
   const displayData = top25Percent.map((item, index) => (
-    <div key={index} >
-      <p style={{fontWeight: "bolder"}}>
+    <div key={index}>
+      <p style={{ fontWeight: "bolder" }}>
         {" "}
-        {item.antecedent} <span style={{ color: "#e67e22",  fontSize : "32px"}}> and</span>{" "}
+        {item.antecedent}{" "}
+        <span style={{ color: "#e67e22", fontSize: "32px" }}> and</span>{" "}
         {item.consequent}{" "}
       </p>
     </div>
   ));
+
+
+
+
   return (
-    <>
+    <><h1>FrequentItemsetsCountChart</h1>
+    <FrequentItemsetsCountChart itemsAndCounts={itemsAndCounts}/>
+
+    <div>
+      <h1>Confidence distribution</h1>
+      <ConfidenceLevelDistribution rules={rules} />
+    </div>
+
+    <div>
+    <SupportCountForItemsets itemsAndCounts={itemsAndCounts} />
+    </div>
+
+    <div>
+      <RuleConfidenceVsConsequentFrequency rules={rules} />
+    </div>
       <div>
         <h1>Recommended</h1>
         <p>
