@@ -1,89 +1,157 @@
-
-
 import { FaUserNinja, FaEnvelope, FaLock } from "react-icons/fa6";
 import "../styles/signUp.css";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from 'axios';
- const SignUp = () => {
-const [user,setUser]=useState([])
-const [email,setEmail]=useState('')
-const [username,setUsername]=useState('')
-const [password,setPassword]=useState('')
- const navigate=useNavigate()
-useEffect(()=>{
-  fetchUsers();
-})
-const fetchUsers=()=>{
-  axios.get('http:localhost:5000/register')
-  .then((res)=>{
-    console.log(res.data)
-  })
-}
+import { useState } from "react";
+import { api as apiCall } from "../config/axios.js";
+import { handleError, handleSuccess } from "../utils/toast.js";
+import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
-const handleRegister=(event)=>{
-  event.preventDefault();
-  axios.post('http://localhost:5000/register',{email,username,password})
-  .then(()=>{
-    alert('registration success')
-    setEmail('')
-    setUsername('')
-    setPassword('')
-    fetchUsers()
-    Navigate('/login')
-  })
-  .catch((error)=>{
-    console.log('unable to register')
-  })
-}
+const SignUp = () => {
+  const [loading,setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    shop_name: "",
+    owner_name: "",
+    address: "",
+  });
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleRegister = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    if(formData.username == "" || formData.email == "" || formData.password == "" || formData.shop_name == "" || formData.owner_name == "" || formData.address == ""){
+      handleError("All fileds are mandatory");
+      setLoading(false);
+      return;
+    }
+    apiCall
+      .post("/auth/register", { ...formData })
+      .then((res) => {
+        const rdata = res.data;
+        if (rdata.success === true) {
+          event.target.reset();
+          setFormData({
+            username: "",
+            email: "",
+            password: "",
+            shop_name: "",
+            owner_name: "",
+            address: "",
+          });
+          handleSuccess(rdata.message);
+          setLoading(false);
+        } else {
+          setLoading(false)
+          let error = rdata.message || "Something went wrong"
+          handleError(error); //TODO
+        }
+      })
+      .catch((error) => {
+        console.error("Error registering user:", error.message);
+        // handleError(error.message);
+      });
+  };
+
   return (
     <>
       <div className="container-signup">
         <div className="signup-container-form">
-          <h3>Sign Up</h3>
+          <h1>Signup</h1>
           <form onSubmit={handleRegister}>
             <div className="username-container">
-              <FaUserNinja className="icons-signup" />
+              <label> Name:</label>
+
               <input
-              
                 type="text"
-                placeholder="enter your username"
+                placeholder="Enter your username"
                 name="username"
                 className="inputs-signup"
-                value={username}
+                value={formData.username}
                 id="username"
-                onChange={(e) =>{setUsername(e.target.value)}}
+                onChange={handleInputChange}
               />
             </div>
             <div className="email-container">
-              <span>
-                <FaEnvelope className="icons-signup" />
-              </span>{" "}
+              <label>Email</label>{" "}
               <input
                 type="email"
-                placeholder="enter your  email"
+                placeholder="Enter your  email"
                 name="email"
                 className="inputs-signup"
-                value={email}
+                value={formData.email}
                 id="email"
-                onChange={(e) =>{setEmail(e.target.value)}}
+                onChange={handleInputChange}
               />
             </div>
             <div className="password-container">
-              <FaLock className="icons-signup" />
+              <label>Password </label>{" "}
               <input
                 type="password"
-                placeholder="enter your passowrd"
+                placeholder="Enter your passowrd"
                 className="inputs-signup"
-                value={password}
-                id="password"
-                onChange={(e) =>{setPassword(e.target.value)}}
+                value={formData.password}
+                name="password"
+                onChange={handleInputChange}
               />
             </div>
-            
-            <button type="submit" >submit</button>
+
+            <div>
+              <label htmlFor="shopName">Shop name:</label>
+              <input
+                type="text"
+                id="shopName"
+                name="shop_name"
+                value={formData.shop_name}
+                placeholder="Your shop name"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="owner_name">Owner Name:</label>{" "}
+              <input
+                type="text"
+                id="owner_name"
+                name="owner_name"
+                value={formData.owner_name}
+                placeholder="Shop Owner name"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="address">Address:</label>
+              <input
+                type="text"
+                placeholder="Enter Owner address"
+                name="address"
+                id="address"
+                value={formData.address}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <button className="btn-register" type="submit" disabled={loading}>
+              {loading ? "Registering....": "Register"}
+            </button>
+
+            <div className="signup">
+              <span>
+                Already have an account?
+                <a >
+                  {" "}
+                  <Link to="/guest/login">Login</Link>
+                </a>
+              </span>
+            </div>
           </form>
         </div>
+        <ToastContainer />
       </div>
     </>
   );

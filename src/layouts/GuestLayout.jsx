@@ -1,8 +1,8 @@
-import { Outlet } from "react-router-dom";
+import { Outlet,Navigate } from "react-router-dom";
 const GuestLayout = () => {
   return (
     <>
-      <div>GuestLayout</div>
+      {/* <div>GuestLayout</div> */}
       <Outlet />
     </>
   );
